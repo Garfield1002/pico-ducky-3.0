@@ -1,0 +1,74 @@
+REM_BLOCK
+	Press CAPS_LOCK 5 times and put your cursor in a text editor
+	The program will print the digits from 0 to 100 in that editor
+END_REM
+
+WAIT_FOR_CAPS_ON
+LED_G
+WAIT_FOR_CAPS_CHANGE
+LED_OFF
+WAIT_FOR_CAPS_CHANGE
+LED_G
+WAIT_FOR_CAPS_CHANGE
+LED_OFF
+WAIT_FOR_CAPS_CHANGE
+LED_G
+WAIT_FOR_CAPS_CHANGE
+LED_OFF
+
+REM PRINTS A DIGIT IN D
+FUNCTION PRINT_DIGIT()
+	IF ($D == 0) THEN
+		STRING 0
+	ELSE IF ($D == 1) THEN
+		STRING 1
+	ELSE IF ($D == 2) THEN
+		STRING 2
+	ELSE IF ($D == 3) THEN
+		STRING 3
+	ELSE IF ($D == 4) THEN
+		STRING 4
+	ELSE IF ($D == 5) THEN
+		STRING 5
+	ELSE IF ($D == 6) THEN
+		STRING 6
+	ELSE IF ($D == 7) THEN
+		STRING 7
+	ELSE IF ($D == 8) THEN
+		STRING 8
+	ELSE IF ($D == 9) THEN
+		STRING 9
+	ELSE
+		STRING ?
+	END_IF
+END_FUNCTION
+
+REM PRINTS AN INT IN N
+FUNCTION PRINT_INT()
+	VAR $LN = 10
+
+	WHILE ($LN <= $N)
+		$LN = $LN * 10
+	END_WHILE
+
+	$LN = $LN / 10
+
+	VAR $NN = $N
+
+	WHILE ($LN > 0)
+		$D = $NN / $LN
+		PRINT_DIGIT()
+		$NN = $NN % $LN
+		$LN = $LN / 10
+	END_WHILE
+END_FUNCTION
+
+STRINGLN Let's count to 100
+
+VAR $I = 0
+WHILE ($I <= 100)
+	VAR $N = $I
+	PRINT_INT()
+	ENTER
+	$I = $I + 1
+END_WHILE
